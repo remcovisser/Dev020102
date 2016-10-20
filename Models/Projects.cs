@@ -1,19 +1,18 @@
-using System;
 using MongoDB.Bson;
 
 public class Projects
 {
-   public ObjectId project_id { get; set; }
-   public string name { get; set; }
-   public int budget { get; set; }
-   public int allocatedHours { get; set; }
-    public string buildingName {get; set; }
-   public BsonDocument address { get; set; }
+    public ObjectId _id {get; set; }
+    public string name { get; set; }
+    public int budget { get; set; }
+    public int allocatedHours { get; set; }
+    public BsonDocument address { get; set; }
+    public BsonDocument headquarter {get; set; }
 }
 
 /*
 
-project_id [
+id [
     name
     budget
     allocatedHours

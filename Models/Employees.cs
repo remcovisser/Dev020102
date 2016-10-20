@@ -1,12 +1,10 @@
-using System;
 using MongoDB.Bson;
 
 public class Employees
 {
-   public string bsn { get; set; }
    public string firstName { get; set; }
    public string lastName { get; set; }
-   public string buildingName { get; set; }
+   public BsonDocument headquarter {get; set; }
    public BsonDocument addresses { get; set; }
    public BsonDocument degrees {get; set; }
    public BsonDocument projects {get; set; }
@@ -15,7 +13,7 @@ public class Employees
 
 /*
 
-bsn [
+id [
     firstName
     lastName
     headquarter [
@@ -54,4 +52,5 @@ bsn [
         ]
     ]
 ]
+
 */
