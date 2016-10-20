@@ -4,7 +4,10 @@
     "debugType": "portable",
     "emitEntryPoint": true
   },
-  "dependencies": {},
+  "dependencies": {
+    "MongoDB.Driver": "2.3.0",
+    "MongoDB.Bson": "2.3.0"
+  },
   "frameworks": {
     "netcoreapp1.0": {
       "dependencies": {
