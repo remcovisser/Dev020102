@@ -10,7 +10,7 @@ class DataHepers
     {
         this.random = random;
     }
-    
+
     public string getProjectName()
     {
         List<string> data = new List<string>(new string[]{"project1", "project2", "project3", "project4", "project5", "project6", "project7", "project8", "project9", "project10"});
@@ -111,6 +111,27 @@ class DataHepers
         List<string> data = new List<string>(new string[]{"level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8", "level9", "level10"});
         int index = random.Next(data.Count);
         return data[index];
+    }
+
+    public BsonDocument getPositions()
+    {
+        var positions = new BsonDocument {};
+
+        for(int i = 0; i < random.Next(5); i++)
+        {
+            var position = new BsonDocument 
+            {
+                { "project_id", getProjectId() },
+                { "name", getPositionName() },
+                { "description", getPositionDescription() },
+                { "fee", getFee() },
+                { "hours", getHours() },
+            };
+
+            positions.Add(i.ToString(), position);
+        }
+
+        return positions;
     }
 
     public ObjectId getProjectId()

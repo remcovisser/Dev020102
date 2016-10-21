@@ -25,13 +25,13 @@ namespace ConsoleApplication
 
 
             // Output the number of employees that are overworking(more than 20 hours) per project.
-            database.totalOverworkingEmployees();
+            // database.totalOverworkingEmployees();
 
             // Find the total working hours of all employees and the average working hours per employee
-            database.totalworkingHoursAndPerEmployee();
+            // database.totalworkingHoursAndPerEmployee();
 
             // Find the total fee of an employee. This number is obtained by multiplying the working hours on all the projects by the hour fee of his position.
-            database.feePerEmployee();
+            // database.feePerEmployee();
         }
     }
 }

@@ -7,7 +7,7 @@ public class Employees
    public BsonDocument headquarter {get; set; }
    public BsonDocument addresses { get; set; }
    public BsonDocument degrees {get; set; }
-   public BsonDocument projects {get; set; }
+   public BsonDocument positions {get; set; }
 }
 
 
@@ -38,17 +38,13 @@ id [
             level
         ]
     ]
-    projects [
+    positions [
         id [
             project_id
-            positions [
-                position_id [
-                    name
-                    description
-                    fee
-                    hours
-                ]
-            ]
+            name
+            description
+            fee
+            hours
         ]
     ]
 ]
