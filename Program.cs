@@ -20,17 +20,15 @@ namespace ConsoleApplication
             createProjects.create();
 
             // Insert Y employees
-            createEmployees createEmployees = new createEmployees(100, random, seed);
+            createEmployees createEmployees = new createEmployees(10, random, seed);
             createEmployees.create();
 
 
-
             // Output the number of employees that are overworking(more than 20 hours) per project.
-            database.totalOverworkingEmployees();
+            //database.totalOverworkingEmployees();
 
-            // Find the total working hours of all employees
-
-            // Find the average working hours per employee
+            // Find the total working hours of all employees and the average working hours per employee
+            database.totalworkingHoursAndPerEmployee();
 
             // Find the total fee of an employee. This number is obtained by multiplying the working hours on all the projects by the hour fee of his position.
         }

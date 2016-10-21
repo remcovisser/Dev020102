@@ -85,4 +85,42 @@ class database
             Console.WriteLine("Project: " + result["_id"] + " has " + result["value"]["count"] + " overworking employees");
         }
     }
+
+    public static void totalworkingHoursAndPerEmployee()
+    {
+        // Get the employees collection
+        var employees = _database.GetCollection<BsonDocument>("employees");
+
+        // Get all the employees
+        BsonJavaScript map = "function() { " +
+            "emit('total', {employees: 1, hours : this.projects.positions.hours}); " + 
+        "}";
+
+        // Get the total hours and employees
+        BsonJavaScript reduce = "function(key, values) {" +
+            "var result = {employees: 0, hours: 0};" +
+            "values.forEach(" +
+                "function(value) {" +
+                    "result.employees ++;" +
+                    "result.hours += value.hours;" +
+                "}" +
+            ");" +
+            "return result;" +
+        "}";
+
+        // Set the MapReduce options
+        var finalize = "function(key,value){ value.averageHours = value.hours / value.employees; return value;}";
+        var options = new MapReduceOptions<BsonDocument, BsonDocument>();
+        options.OutputOptions = MapReduceOutputOptions.Inline;
+        options.Finalize = finalize;
+
+        // Excute map and reduce functions 
+        var resultMR = employees.MapReduce(map, reduce, options).ToList();
+
+         // Print the results
+        foreach (var result in resultMR)
+        {
+            Console.WriteLine("employees: " + result["value"]["employees"] + ", hours: " + result["value"]["hours"] + ", avarage: " + result["value"]["averageHours"]);
+        }
+    }
 }
