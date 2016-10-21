@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -44,5 +46,43 @@ class database
         }
 
         return projectIds;
+    }
+
+
+    public static void totalOverworkingEmployees()
+    {
+        // Get the employees collection
+        var employees = _database.GetCollection<BsonDocument>("employees");
+
+        // Get only the employees that are working more dan 20 hours
+        BsonJavaScript map = "function() { " +
+            "if(this.projects.positions.hours > 20) { " +
+                "emit(this.projects.project_id, {count : 1}); " + 
+            "}" + 
+        "}";
+
+        // Group the overworking employees by project_id
+        BsonJavaScript reduce = "function(key, values) {" +
+            "var result = {count: 0};" +
+            "values.forEach(" +
+                "function(value) {" +
+                    "result.count ++;" +
+                "}" +
+            ");" +
+            "return result;" +
+        "}";
+
+        // Set the MapReduce options
+        var options = new MapReduceOptions<BsonDocument, BsonDocument>();
+        options.OutputOptions = MapReduceOutputOptions.Inline;
+
+        // Excute map and reduce functions 
+        var resultMR = employees.MapReduce(map, reduce, options).ToList();
+
+        // Print the results
+        foreach (var result in resultMR)
+        {
+            Console.WriteLine("Project: " + result["_id"] + " has " + result["value"]["count"] + " overworking employees");
+        }
     }
 }
