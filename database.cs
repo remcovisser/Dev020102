@@ -91,7 +91,7 @@ class database
         // Get the employees collection
         var employees = _database.GetCollection<BsonDocument>("employees");
 
-        // Get all the employees
+        // Get the hours per employee
         BsonJavaScript map = "function() { " +
             "emit('total', {employees: 1, hours : this.projects.positions.hours}); " + 
         "}";
@@ -121,6 +121,44 @@ class database
         foreach (var result in resultMR)
         {
             Console.WriteLine("employees: " + result["value"]["employees"] + ", hours: " + result["value"]["hours"] + ", avarage: " + result["value"]["averageHours"]);
+        }
+    }
+
+    public static void feePerEmployee()
+    {
+        // Get the employees collection
+        var employees = _database.GetCollection<BsonDocument>("employees");
+
+        // Get all the employees with there id, hours and fee
+        BsonJavaScript map = "function() { " +
+            "emit(this._id, {hours : this.projects.positions.hours, fee: this.projects.positions.fee}); " + 
+        "}";
+
+        // Get the total hours and fee per employees
+        BsonJavaScript reduce = "function(key, values) {" +
+            "var result = {hours: 0, fee: 0};" +
+            "values.forEach(" +
+                "function(value) {" +
+                    "result.hours = value.hours;" +
+                    "result.fee += value.fee;" +
+                "}" +
+            ");" +
+            "return result;" +
+        "}";
+
+        // Set the MapReduce options
+        var finalize = "function(key,value){ value.totalFee = value.hours * value.fee; return value;}";
+        var options = new MapReduceOptions<BsonDocument, BsonDocument>();
+        options.OutputOptions = MapReduceOutputOptions.Inline;
+        options.Finalize = finalize;
+
+        // Excute map and reduce functions 
+        var resultMR = employees.MapReduce(map, reduce, options).ToList();
+
+         // Print the results
+        foreach (var result in resultMR)
+        {
+            Console.WriteLine("employee: " + result["_id"] + ", hours: " + result["value"]["hours"] + ", fee: " + result["value"]["fee"] + ", totalFee: " + result["value"]["totalFee"]);
         }
     }
 }
