@@ -113,6 +113,7 @@ class DataHepers
         return data[index];
     }
 
+    // Not being used
     public BsonDocument getPositions()
     {
         var positions = new BsonDocument {};

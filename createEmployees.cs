@@ -43,9 +43,17 @@ class createEmployees
                     { "school", datahelper.getSchool() },
                     { "level", datahelper.getLevel() },
                 },
-                positions = new BsonDocument
+                projects = new BsonDocument
                 {
-                    datahelper.getPositions()
+                    { "project_id", datahelper.getProjectId() },
+                    { "positions", 
+                        new BsonDocument {
+                            { "name", datahelper.getPositionName() },
+                            { "description", datahelper.getPositionDescription() },
+                            { "fee", datahelper.getFee() },
+                            { "hours", datahelper.getHours() },
+                        }
+                    }
                 }
             };
 
