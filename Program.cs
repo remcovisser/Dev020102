@@ -11,8 +11,8 @@ namespace ConsoleApplication
             database.dropCollections();
 
             // Set a seed to create the data
-            string seed = "aa12";
-            var random = new Random(1);
+            int seed = 1;
+            var random = new Random(seed);
 
          
             // Insert X projects

@@ -5,9 +5,9 @@ class createProjects
 {
     int amount;
     Random random;
-    string seed;
+    int seed;
 
-    public createProjects (int amount, Random random, string seed)
+    public createProjects (int amount, Random random, int seed)
     {
         this.amount = amount;
         this.random = random;
