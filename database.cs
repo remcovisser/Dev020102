@@ -101,7 +101,7 @@ class database
             "var result = {employees: 0, hours: 0};" +
             "values.forEach(" +
                 "function(value) {" +
-                    "result.employees ++;" +
+                    "result.employees += value.employees;" +
                     "result.hours += value.hours;" +
                 "}" +
             ");" +
@@ -117,11 +117,8 @@ class database
         // Excute map and reduce functions 
         var resultMR = employees.MapReduce(map, reduce, options).ToList();
 
-         // Print the results
-        foreach (var result in resultMR)
-        {
-            Console.WriteLine("employees: " + result["value"]["employees"] + ", hours: " + result["value"]["hours"] + ", avarage: " + result["value"]["averageHours"]);
-        }
+        // Print the results
+        Console.WriteLine("Employees: " + resultMR[0]["value"]["employees"] + ", hours: " + resultMR[0]["value"]["hours"] + ", avarage: " + resultMR[0]["value"]["averageHours"]);       
     }
 
     public static void feePerEmployee()
@@ -155,7 +152,7 @@ class database
         // Excute map and reduce functions 
         var resultMR = employees.MapReduce(map, reduce, options).ToList();
 
-         // Print the results
+        // Print the results
         foreach (var result in resultMR)
         {
             Console.WriteLine("employee: " + result["_id"] + ", hours: " + result["value"]["hours"] + ", fee: " + result["value"]["fee"] + ", totalFee: " + result["value"]["totalFee"]);

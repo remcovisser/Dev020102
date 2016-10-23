@@ -16,11 +16,11 @@ namespace ConsoleApplication
 
          
             // Insert X projects
-            createProjects createProjects = new createProjects(5, random, seed);
+            createProjects createProjects = new createProjects(100, random, seed);
             createProjects.create();
 
             // Insert Y employees
-            createEmployees createEmployees = new createEmployees(10, random, seed);
+            createEmployees createEmployees = new createEmployees(10000, random, seed);
             createEmployees.create();
 
 
